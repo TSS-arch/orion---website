@@ -68,25 +68,20 @@ def details4():
 # ENQUIRY FORM SAVE
 # =========================================
 
-from flask import request, jsonify
-import sqlite3
-from datetime import datetime
-
 @app.route("/save-enquiry", methods=["POST"])
 def save_enquiry():
-    # Parse JSON data from request body
-    data = request.get_json()
-    
-    full_name = data.get("full_name")
-    company_name = data.get("company_name")
-    phone = data.get("phone")
-    email = data.get("email")
-    product_interest = data.get("product_interest")
-    requirement = data.get("requirement")
-    
+
+    full_name = request.form.get("full_name")
+    company_name = request.form.get("company_name")
+    phone = request.form.get("phone")
+    email = request.form.get("email")
+    product_interest = request.form.get("product_interest")
+    requirement = request.form.get("requirement")
+
     con = sqlite3.connect(DATABASE)
+
     cmd = con.cursor()
-    
+
     cmd.execute("""
     INSERT INTO enquiries
     (
@@ -99,7 +94,9 @@ def save_enquiry():
         created_date
     )
     VALUES
-    (?, ?, ?, ?, ?, ?, ?)
+    (
+        ?,?,?,?,?,?,?
+    )
     """,
     (
         full_name,
@@ -110,11 +107,11 @@ def save_enquiry():
         requirement,
         datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     ))
-    
+
     con.commit()
     con.close()
-    
-    return jsonify({"success": True, "message": "Enquiry Saved Successfully"})
+
+    return "Enquiry Saved Successfully"
 
 # =========================================
 # ADMIN PANEL
