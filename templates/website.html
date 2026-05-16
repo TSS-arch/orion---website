@@ -1462,7 +1462,10 @@ border-bottom:1px solid #eee;
         const email = document.querySelector('input[name="email"]')?.value.trim() || "";
         const product = document.querySelector('select[name="product_interest"]')?.value || "";
         const requirement = document.querySelector('textarea[name="requirement"]')?.value.trim() || "";
-        let msg = `*New Enquiry from Orion Website*%0A%0A*Name:* ${fullName || "—"}%0A*Company:* ${company || "—"}%0A*Phone:* ${phone || "—"}%0A*Email:* ${email || "—"}%0A*Product Interested:* ${product || "—"}%0A*Requirement:* ${requirement || "—"}%0A%0AThanks for connecting.`;
+      
+        let msg = `*I am interested in your product and would like to know more details.* 😊%0A%0A*Customer Details:*%0A👤 *Name:* ${fullName || "—"}%0A🏢 *Company:* ${company || "—"}%0A📞 *Phone:* ${phone || "—"}%0A📧 *Email:* ${email || "—"}%0A📦 *Product Interested In:* ${product || "—"}%0A📝 *Requirement:* ${requirement || "—"}%0A%0APlease get in touch with me at your earliest convenience.%0A%0AThank you!`;
+
+
         return msg;
     }
 
