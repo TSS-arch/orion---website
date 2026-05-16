@@ -894,12 +894,14 @@
       color:#b8c1d1;
     }
 
+    /* Tablet */
     @media(max-width:992px){
       .grid-3{
         grid-template-columns:repeat(2,1fr);
       }
     }
 
+    /* Mobile */
     @media(max-width:600px){
       .grid-3{
         grid-template-columns:1fr;
@@ -946,6 +948,12 @@
         display:none;
     }
 
+    .nav-links a{
+        margin:10px;
+        text-decoration:none;
+    }
+
+    /* Mobile View */
     @media (max-width:768px){
       .nav-links{
           display:none;
@@ -1017,6 +1025,61 @@
         cursor:pointer;
     }
 
+    /* sidebar */
+    .side-menu{
+        position:fixed;
+        top:0;
+        left:-260px;
+        width:260px;
+        height:100%;
+        background:white;
+        padding-top:60px;
+        transition:0.3s;
+        z-index:1001;
+    }
+
+    .side-menu a{
+        display:block;
+        padding:15px;
+        text-decoration:none;
+        color:black;
+        border-bottom:1px solid #eee;
+    }
+
+    /* overlay */
+    #overlay{
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background:rgba(0,0,0,0.4);
+        display:none;
+        z-index:999;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:20px;
+      align-items:center;
+    }
+
+    /* Desktop এ menu icon hide */
+    .menu-icon{
+        font-size:28px;
+        cursor:pointer;
+        display:none;
+    }
+
+    @media(max-width:768px){
+      .menu-icon{
+          display:block;
+      }
+      .nav-links{
+          display:none;
+      }
+    }
+
     .side-menu{
         position:fixed;
         top:0;
@@ -1027,9 +1090,51 @@
         box-shadow:4px 0 20px rgba(0,0,0,0.2);
         padding-top:80px;
         transition:0.4s;
-        z-index:1001;
+        z-index:1000;
     }
 
+    .side-menu a{
+        display:block;
+        padding:16px 25px;
+        text-decoration:none;
+        font-size:16px;
+        color:#333;
+        border-bottom:1px solid #eee;
+        transition:0.3s;
+    }
+
+    .side-menu a:hover{
+        background:#f5f5f5;
+        padding-left:35px;
+    }
+
+    .demo-btn{
+        background:#007bff;
+        color:white !important;
+        margin:20px;
+        border-radius:6px;
+        text-align:center;
+        border:none;
+    }
+
+    .demo-btn:hover{
+        background:#0056b3;
+    }
+
+    .side-menu{
+        position:fixed;
+        top:0;
+        left:-270px;
+        width:270px;
+        height:100%;
+        background:#ffffff;
+        box-shadow:0 10px 30px rgba(0,0,0,0.25);
+        padding-top:80px;
+        transition:0.4s;
+        z-index:1000;
+    }
+
+    /* menu links */
     .side-menu a{
         display:flex;
         align-items:center;
@@ -1043,12 +1148,14 @@
         transition:all 0.25s ease;
     }
 
+    /* hover effect */
     .side-menu a:hover{
         background:#f8fafc;
         color:#b45309;
         padding-left:36px;
     }
 
+    /* demo button */
     .side-menu a:last-child{
         background:#b45309;
         color:white;
@@ -1069,47 +1176,88 @@
       border-bottom:1px solid #eee;
     }
 
-    #overlay{
-        position:fixed;
-        top:0;
-        left:0;
-        width:100%;
-        height:100%;
-        background:rgba(0,0,0,0.4);
-        display:none;
-        z-index:999;
+    .demo-btn{
+        display:block;
+        margin:20px auto;       /* middle e anbe */
+        width:80%;
+        background:#d4af37;     /* light gold color */
+        color:white;
+        border:none;
+        padding:12px;
+        font-size:15px;
+        border-radius:6px;
+        cursor:pointer;
+        text-align:center;
+        transition:0.3s;
+    }
+
+    .demo-btn:hover{
+        background:#c19b2e;     /* hover e dark gold */
     }
     </style>
 </head>
 <body>
+  <!-- TOP BAR (Commented in original, keeping as is) -->
+  <!--<div class="top-bar">-->
+  <!--  <div class="container">-->
+  <!--    <span><i class="fas fa-map-marker-alt"></i> BADLAPUR, JAUNPUR, UP 222125 | GST: 07AQTPG5798E1Z8</span>-->
+  <!--    <span><i class="fas fa-envelope"></i> orioninstruments@outlook.com <i class="fas fa-phone-alt" style="margin-left: 15px;"></i> +91-6393753122</span>-->
+  <!--  </div>-->
+  <!--</div>-->
 
   <header class="main-header">
     <div class="container nav-container">
       <div class="logo-wrapper">
         <div class="menu-icon" onclick="openMenu()">☰</div>
+
         <div id="overlay" onclick="closeMenu()"></div>
+
         <img src="logo.jpeg" class="logo-img" alt="Orion Instruments Logo" onerror="this.style.display='none'">
+
         <div class="logo-text">
           <h1>ORION INSTRUMENTS CO.</h1>
           <p>Gold Testing Machine | Gold Testing Centre | Hallmarking Centers</p>
         </div>
       </div>
+
       <div class="nav-links">
         <a href="#">Home</a>
         <a href="#about">About</a>
         <a href="#product">Products</a>
         <a href="#reviews">Reviews</a>
         <a href="#contact">Contact</a>
+        <a href="/support">Email</a>
         <a href="#demo" class="contact-btn">Request a Demo</a>
       </div>
+
       <div id="sideMenu" class="side-menu">
-        <div class="side-menu-header">ORION INSTRUMENTS</div>
-        <a href="#" onclick="closeMenu()"><i class="fas fa-home"></i> Home</a>
-        <a href="#about" onclick="closeMenu()"><i class="fas fa-building"></i> About</a>
-        <a href="#product" onclick="closeMenu()"><i class="fas fa-box"></i> Products</a>
-        <a href="#reviews" onclick="closeMenu()"><i class="fas fa-star"></i> Reviews</a>
-        <a href="#contact" onclick="closeMenu()"><i class="fas fa-phone"></i> Contact</a>
-        <a href="#demo" onclick="closeMenu()"><i class="fas fa-desktop"></i> Request a Demo</a>
+        <div class="side-menu-header">
+          ORION INSTRUMENTS
+        </div>
+        <a href="#" onclick="closeMenu()">
+          <i class="fas fa-home"></i> Home
+        </a>
+
+        <a href="#about" onclick="closeMenu()">
+          <i class="fas fa-building"></i> About
+        </a>
+
+        <a href="#product" onclick="closeMenu()">
+          <i class="fas fa-box"></i> Products
+        </a>
+
+        <a href="#reviews" onclick="closeMenu()">
+          <i class="fas fa-star"></i> Reviews
+        </a>
+
+        <a href="#contact" onclick="closeMenu()">
+          <i class="fas fa-phone"></i> Contact
+        </a>
+
+        <a href="#demo" onclick="closeMenu()">
+          <i class="fas fa-desktop"></i> Request a Demo
+        </a>
+
       </div>
     </div>
   </header>
@@ -1125,55 +1273,254 @@
     </div>
   </div>
 
-  <section style="background: #fefaf5; padding: 40px 0 60px;" id="product">
-    <div class="container">
-      <div class="section-title">Our Premium Products</div>
-      <div class="product-grid">
-        <div class="product-info"><div class="product-visual-box"><img src="static/galaxy525.jpeg" alt="Orion ALFA"></div><h3>ORION GALAXY 525 GOLD TESTING MACHINE</h3><p>High Performance X-Ray Fluorescence (XRF) Instrument for Accurate Gold Purity.</p><div class="spec-list"><div class="spec"><span>Detector</span><span>AmpTek Silicon Drift</span></div></div><a href="/details" class="btn-primary">Show More...</a></div>
-        <div class="product-info"><div class="product-visual-box"><img src="static/galaxy555.jpeg" alt="S100 Machine"></div><h3>ORION GALAXY 555 GOLD TESTING MACHINE</h3><p>High Performance XRF Instrument for Gold & Material Analysis.</p><div class="spec-list"><div class="spec"><span>X-Ray Source</span><span>50W Micro-focused</span></div></div><a href="/orion-galaxy-555" class="btn-primary">Show More...</a></div>
-        <div class="product-info"><div class="product-visual-box"><img src="static/laser.jpeg" alt="Laser Marking"></div><h3>ORION GALAXY LASER MARKING & ENGRAVING</h3><ul style="padding-left:30px;margin:20px 0;list-style-type:disc"><li style="color:#b8c1d1">HIGH-PRECISION FOR METALS</li><li style="color:#b8c1d1">SERIAL & BARCODE MARKING</li></ul><div class="spec-list"><div class="spec"><span>Laser Power</span><span>20W/30W</span></div></div><a href="/orion-galaxy-laser" class="btn-primary">Show More...</a></div>
-        <div class="product-info"><div class="product-visual-box"><img src="static/jwlaser.jpeg" alt="XRF Analyzer"></div><h3>JEWELLERY LASER WELDING</h3><p>Advanced Jewellery Laser Welding Machine for precision repair.</p><div class="spec-list"><div class="spec"><span>Output Power</span><span>200W</span></div></div><a href="/jewellery-laser" class="btn-primary">Show More...</a></div>
+  <!-- HERO SECTION (FULL ORIGINAL) -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge"><i class="fas fa-trophy"></i> Premium XRF Gold Testing Technology</div>
+        <h2>High-Precision Gold Testing & Security Machines</h2>
+        <p>Deliver faster analysis, better accuracy, premium reporting, and software-driven lab efficiency with a new generation of XRF gold testing systems since 2015. Trusted by Gold Testing Centres and Hallmarking Centers across India.</p>
+        <div class="hero-stats">
+          <div class="stat"><span>10+</span> Years Excellence</div>
+          <div class="stat"><span>1.5 - 5 Cr</span> Annual Turnover</div>
+          <div class="stat"><span>Upto 10</span> Team Members</div>
+        </div>
+        <button onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})" style="display:block;margin:20px auto;">
+            Request a Demo →
+        </button>
+      </div>
+      <div class="hero-image">
+        <div class="hero-card">
+          <img src="/static/logo.jpeg" style="width:140px; margin:0 auto 15px; display:block;" alt="Logo" onerror="this.style.display='none'">
+          <div class="stats-card">
+            <div class="stat-item"><h3>30s</h3><p>Test Time</p></div>
+            <div class="stat-item"><h3>99.9%</h3><p>Accuracy</p></div>
+            <div class="stat-item"><h3>24/7</h3><p>Support</p></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- ABOUT SECTION (FULL ORIGINAL) -->
+  <section id="about">
+    <div class="container">
+      <div class="section-title">About ORION INSTRUMENTS CO.</div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p><strong>Established in 2015 at UTTAR PRADESH</strong>, ORION INSTRUMENTS CO. has become a leading manufacturer, supplier & trader of Testing Machines. Our products are appreciated for high-precision and accurate functioning.</p>
+          <p>Our products reduce manual operation, made from high-quality components ensuring long-lasting service. Affordable and widely used in Gold Testing Centres, Hallmarking Centers, and for security of valuables.</p>
+          <div class="trust-seal"><i class="fas fa-check-circle"></i> ISO 9001:2015 Certified Practices</div>
+        </div>
+        <div class="info-cards">
+          <div class="info-card"><i class="fas fa-building"></i><h4>Legal Status</h4><p>Proprietorship</p></div>
+          <div class="info-card"><i class="fas fa-calendar-alt"></i><h4>GST Registration</h4><p>01-07-2017</p></div>
+          <div class="info-card"><i class="fas fa-globe"></i><h4>IEC Code</h4><p>AQTPG5798E</p></div>
+          <div class="info-card"><i class="fas fa-chart-line"></i><h4>Annual Turnover</h4><p>1.5 - 5 Cr</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS SECTION (FULL ORIGINAL) -->
+  <section style="background: #fefaf5; padding: 40px 0 60px;" id="product">
+    <div class="container">
+      <div class="section-title">Our Premium Products</div>
+      <div class="product-grid">
+        <div class="product-info">
+          <div class="product-visual-box"><img src="static/galaxy525.jpeg" alt="Orion ALFA" onerror="this.src='/static/galaxy525.jpeg'"></div>
+          <h3>ORION GALAXY 525 GOLD TESTING MACHINE</h3>
+          <p>High Performance X-Ray Fluorescence (XRF) Instrument for Accurate Gold Purity & Material Analysis.</p>
+          <div class="spec-list">
+            <div class="spec"><span>X-Ray Source</span><span>50W Micro-Focused Tube</span></div>
+            <div class="spec"><span>Detector</span><span>AmpTek Silicon Drift Detector with 110eV resolution or better</span></div>
+            <div class="spec"><span>Analysis Capability</span><span>5 Layer (4 Layers + Base) Up to 25 elements simultaneously</span></div>
+          </div>
+          <a href="/details" class="btn-primary">Show More...</a>
+        </div>
+        <div class="product-info">
+          <div class="product-visual-box"><img src="static/galaxy555.jpeg" alt="S100 Machine" onerror="this.src='/static/galaxy555.jpeg'"></div>
+          <h3>ORION GALAXY 555 GOLD TESTING MACHINE</h3>
+          <p>High Performance X-Ray Fluorescence (XRF) Instrument for Accurate Gold Purity & Material Analysis</p>
+          <div class="spec-list">
+            <div class="spec"><span>X-Ray Source</span><span>50W (50kV, 1mA) Micro-focused W-anode Tube</span></div>
+            <div class="spec"><span>Detector</span><span>AmpTek Silicon Drift Detector with 110eV resolution or better</span></div>
+            <div class="spec"><span>Analysis Capability</span><span>5 Layer (4 Layers + Base) Up to 25 elements simultaneously</span></div>
+          </div>
+          <a href="/orion-galaxy-555" class="btn-primary">Show More...</a>
+        </div>
+
+        <div class="product-info">
+          <div class="product-visual-box"><img src="static/laser.jpeg" alt="Laser Marking" onerror="this.src='/static/laser.jpeg'"></div>
+          <h3>ORION GALAXY LASER MARKING & ENGRAVING</h3>
+          <ul style="padding-left:30px; margin:20px 0; list-style-type:disc;">
+            <li style="color:#b8c1d1 !important; font-size:17px; font-weight:bold; margin-bottom:14px; line-height:1.8; display:list-item;">HIGH-PRECISION FOR METALS</li>
+            <li style="color:#b8c1d1 !important; font-size:17px; font-weight:bold; margin-bottom:14px; line-height:1.8; display:list-item;">SERIAL &amp; BARCODE MARKING</li>
+            <li style="color:#b8c1d1 !important; font-size:17px; font-weight:bold; margin-bottom:14px; line-height:1.8; display:list-item;">MAINTENANCE-FREE OPERATION</li>
+            <li style="color:#b8c1d1 !important; font-size:17px; font-weight:bold; margin-bottom:14px; line-height:1.8; display:list-item;">USER-FRIENDLY SOFTWARE INTERFACE</li>
+          </ul>
+          <div class="spec-list">
+            <div class="spec"><span>Laser Power</span><span>20W/30W</span></div>
+            <div class="spec"><span>Marking Area</span><span>110mm x 110mm</span></div>
+            <div class="spec"><span>Repetition Frequency</span><span>50kHz</span></div>
+          </div>
+          <a href="/orion-galaxy-laser" class="btn-primary">Show More...</a>
+        </div>
+
+        <div class="product-info">
+          <div class="product-visual-box"><img src="static/jwlaser.jpeg" alt="XRF Analyzer" onerror="this.src='/static/jwlaser.jpeg'"></div>
+          <h3>JEWELLERY LASER WELDING</h3>
+          <p>Advanced Jewellery Laser Welding Machine designed for precision welding, jewellery repair, ring sizing, clasp fixing and fine gold & silver work with high-speed laser technology.</p>
+          <div class="spec-list">
+            <div class="spec"><span>Model No.</span><span>ALW-200</span></div>
+            <div class="spec"><span>Output Power</span><span>200 W based on requirement</span></div>
+            <div class="spec"><span>Single-pulse energy</span><span>0-150 J</span></div>
+          </div>
+          <a href="/jewellery-laser" class="btn-primary">Show More...</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEMO SECTION (UPDATED FORM) -->
   <section class="demo-section" id="demo">
     <div class="demo-container">
       <h2>Request a Live Demo</h2>
       <p>Fill the form and our team will contact you shortly.</p>
       <form class="demo-form" id="demoForm">
-        <div class="input-group"><input type="text" name="full_name" id="full_name" placeholder="Full Name" required></div>
-        <div class="input-group"><input type="text" name="company_name" id="company_name" placeholder="Company / Shop Name"></div>
-        <div class="input-group"><input type="tel" name="phone" id="phone" placeholder="Phone Number" required></div>
-        <div class="input-group"><input type="email" name="email" id="email" placeholder="Email Address"></div>
-        <div class="input-group"><select name="product_interest" id="product_interest" required><option value="">Select Product Interest</option><option value="Gold Testing Machine">Gold Testing Machine</option><option value="XRF Analyzer">XRF Analyzer</option><option value="Laser Marking Machine">Laser Marking Machine</option><option value="Service & Support">Service & Support</option></select></div>
-        <div class="input-group"><textarea name="requirement" id="requirement" placeholder="Your requirement details..."></textarea></div>
+        <div class="input-group">
+          <input type="text" id="full_name" name="full_name" placeholder="Full Name" required>
+        </div>
+        <div class="input-group">
+          <input type="text" id="company_name" name="company_name" placeholder="Company / Shop Name">
+        </div>
+        <div class="input-group">
+          <input type="tel" id="phone" name="phone" placeholder="Phone Number" required>
+        </div>
+        <div class="input-group">
+          <input type="email" id="email" name="email" placeholder="Email Address">
+        </div>
+        <div class="input-group">
+          <select id="product_interest" name="product_interest" required>
+            <option value="">Select Product Interest</option>
+            <option value="Gold Testing Machine">Gold Testing Machine</option>
+            <option value="XRF Analyzer">XRF Analyzer</option>
+            <option value="Laser Marking Machine">Laser Marking Machine</option>
+            <option value="Service & Support">Service & Support</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <textarea id="requirement" name="requirement" placeholder="Your requirement details..."></textarea>
+        </div>
         <button type="submit" class="demo-btn">Submit Enquiry</button>
       </form>
     </div>
   </section>
 
-  <section id="gallery" style="background: #fff9f2;"><div class="container"><div class="section-title">Why Choose Our Technology</div><div class="grid-3"><div class="card"><div class="icon">⚡</div><h3>Rapid Analysis</h3><p>Get fast, lab-grade elemental analysis within seconds.</p></div><div class="card"><div class="icon">🛡️</div><h3>Non-Destructive Testing</h3><p>Preserve jewellery integrity while obtaining accurate composition.</p></div><div class="card"><div class="icon">🧠</div><h3>Smart Software Layer</h3><p>Integrated reporting, database storage, operator workflow.</p></div></div></div></section>
+  <!-- GALLERY/WHY CHOOSE SECTION (FULL ORIGINAL) -->
+  <section id="gallery" style="background: #fff9f2;">
+    <div class="container">
+      <div class="section-title">Why Choose Our Technology</div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="icon">⚡</div>
+          <h3>Rapid Analysis</h3>
+          <p>Get fast, lab-grade elemental analysis within seconds to reduce queue time and increase testing capacity.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🛡️</div>
+          <h3>Non-Destructive Testing</h3>
+          <p>Preserve jewellery integrity while obtaining accurate composition results without acid or cutting methods.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🧠</div>
+          <h3>Smart Software Layer</h3>
+          <p>Integrated reporting, database storage, operator workflow, and lab management tools in one platform.</p>
+        </div>
+        <div class="card">
+          <div class="icon">📊</div>
+          <h3>Premium Reporting</h3>
+          <p>Professional reports with customer details, metal composition, logo branding, and export-ready output.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🔬</div>
+          <h3>Precision Engineering</h3>
+          <p>Designed for reliable testing across gold, silver, platinum, and alloy-based compositions.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🌐</div>
+          <h3>Future-Ready Connectivity</h3>
+          <p>Connect with software systems, cloud records, token systems, and digital lab workflows.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <section id="reviews"><div class="container"><div class="section-title">Customer Ratings & Reviews</div><div class="rating-summary"><div class="stars-big"><div class="score">4.1 <span>/5</span></div><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div><p>17 User Reviews</p></div><div class="rating-bars"><div class="bar-item"><span class="bar-label">5 ★</span><div class="bar-bg"><div class="bar-fill" style="width:53%"></div></div><span>53%</span></div></div></div><div class="review-cards"><div class="review-card"><div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>"Excellent gold testing machine, very accurate results."</p><div class="review-name">Roushan Kumar</div></div></div></div></section>
+  <!-- REVIEWS SECTION (FULL ORIGINAL) -->
+  <section id="reviews">
+    <div class="container">
+      <div class="section-title">Customer Ratings & Reviews</div>
+      <div class="rating-summary">
+        <div class="stars-big"><div class="score">4.1 <span style="font-size:1rem;">/5</span></div><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div><p>17 User Reviews</p></div>
+        <div class="rating-bars">
+          <div class="bar-item"><span class="bar-label">5 ★</span><div class="bar-bg"><div class="bar-fill" style="width:53%"></div></div><span>53%</span></div>
+          <div class="bar-item"><span class="bar-label">4 ★</span><div class="bar-bg"><div class="bar-fill" style="width:23%"></div></div><span>23%</span></div>
+          <div class="bar-item"><span class="bar-label">3 ★</span><div class="bar-bg"><div class="bar-fill" style="width:6%"></div></div><span>6%</span></div>
+          <div class="bar-item"><span class="bar-label">1 ★</span><div class="bar-bg"><div class="bar-fill" style="width:18%; background:#9e5e2e;"></div></div><span>18%</span></div>
+        </div>
+        <div><i class="fas fa-award" style="font-size:2.5rem; color:#b45309;"></i><br>User Satisfaction<br>Quality 100%</div>
+      </div>
+      <div class="review-cards">
+        <div class="review-card"><div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>"Excellent gold testing machine, very accurate results. Prompt delivery and support."</p><div class="review-name">Roushan Kumar</div><div class="review-place">Patna, Bihar</div></div>
+        <div class="review-card"><div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>"Best quality money counter, saved our banking time. Highly recommended."</p><div class="review-name">Pawan Verma</div><div class="review-place">Deoria, UP</div></div>
+        <div class="review-card"><div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>"Trustworthy supplier, after sales service is excellent. Gold tester works flawlessly."</p><div class="review-name">Dyanand Soni</div><div class="review-place">Hisar, Haryana</div></div>
+      </div>
+    </div>
+  </section>
 
-  <section id="contact" class="contact-section"><div class="container contact-flex"><div class="contact-info"><h3>Connect With Us</h3><p><strong>Neetu Yadav (Proprietor)</strong><br>Orion Instruments Co.</p><div class="contact-detail"><i class="fas fa-map-pin"></i><span>BADLAPUR, JAUNPUR, UP 222125</span></div><div class="contact-detail"><i class="fas fa-phone-alt"></i><span>+91-6393753122</span></div><div class="contact-detail"><i class="fas fa-envelope"></i><span>orioninstruments@outlook.com</span></div><button onclick="window.location.href='mailto:orioninstruments@outlook.com'"><i class="fas fa-paper-plane"></i> Send Inquiry</button></div></div></section>
+  <!-- CONTACT SECTION (FULL ORIGINAL) -->
+  <section id="contact" class="contact-section">
+    <div class="container contact-flex">
+      <div class="contact-info">
+        <h3>Connect With Us</h3>
+        <p><strong>Neetu Yadav (Proprietor)</strong><br>Orion Instruments Co.</p>
+        <div class="contact-detail"><i class="fas fa-map-pin"></i><span>BADLAPUR, JAUNPUR, UTTAR PRADESH, India 222125</span></div>
+        <div class="contact-detail"><i class="fas fa-phone-alt"></i><span>+91-6393753122</span></div>
+        <div class="contact-detail"><i class="fas fa-envelope"></i><span>orioninstruments@outlook.com</span></div>
+        <div class="contact-detail"><i class="fab fa-whatsapp"></i><span>WhatsApp: +91-6393753122</span></div>
+        <button onclick="window.location.href='mailto:orioninstruments@outlook.com'"><i class="fas fa-paper-plane"></i> Send Inquiry</button>
+      </div>
+      <!-- MAP PLACEHOLDER (commented in original, keeping as is) -->
+      <!--<div class="map-placeholder">...</div>-->
+    </div>
+  </section>
 
-  <footer><div class="container"><div class="footer-grid"><div><h3>ORION INSTRUMENTS CO.</h3><p>Gold Testing Machine for Centres & Hallmarking.</p></div><div><h4>Quick Links</h4><p><a href="#" style="color:#cbd5e1;">Home</a><br><a href="#about" style="color:#cbd5e1;">About</a><br><a href="#product" style="color:#cbd5e1;">Products</a></p></div><div><h4>Legal</h4><p>GST: 07AQTPG5798E1Z8<br>IEC: AQTPG5798E</p></div><div class="social-links"><h4>Follow</h4><a href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-linkedin"></i></a></div></div><div class="footer-copyright">© ORION INSTRUMENTS CO. All Rights Reserved</div></div></footer>
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div><h3>ORION INSTRUMENTS CO.</h3><p>Gold Testing Machine for Centres & Hallmarking.<br>Verified since 2017</p></div>
+        <div><h4>Quick Links</h4><p><a href="#" style="color:#cbd5e1; text-decoration:none;">Home</a><br><a href="#about" style="color:#cbd5e1; text-decoration:none;">About</a><br><a href="#product" style="color:#cbd5e1; text-decoration:none;">Products</a></p></div>
+        <div><h4>Legal</h4><p>GST: 07AQTPG5798E1Z8<br>IEC: AQTPG5798E<br>Proprietorship</p></div>
+        <div class="social-links"><h4>Follow</h4><a href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-youtube"></i></a></div>
+      </div>
+      <div class="footer-copyright">© ORION INSTRUMENTS CO. All Rights Reserved | Developed by Touch Software Solutions</div>
+    </div>
+  </footer>
 
-  <!-- Floating Buttons (Call & WhatsApp) -->
+  <!-- Floating Call & WhatsApp Buttons -->
   <div class="float-buttons">
-    <a href="tel:+916393753122" class="float-btn btn-call"><i class="fas fa-phone-alt"></i></a>
-    <a href="https://wa.me/916393753122?text=Hello%2C%20I%20need%20more%20information%20about%20Gold%20Testing%20Machines" target="_blank" class="float-btn btn-wa"><i class="fab fa-whatsapp"></i></a>
+    <a href="tel:+919051225062" class="float-btn btn-call"><i class="fas fa-phone-alt"></i></a>
+    <a href="https://wa.me/919051225062?text=Hello%2C%20I%27m%20interested%20in%20your%20Gold%20Testing%20Machines" target="_blank" class="float-btn btn-wa"><i class="fab fa-whatsapp"></i></a>
   </div>
-  <div id="toastMsg" class="toast-notify" style="display: none;">Redirecting to WhatsApp...</div>
+  <div id="toastMsg" class="toast-notify" style="display: none;">Sending...</div>
 
   <script>
-    // Slider logic
-    const imagesList = ["/static/image1.jpeg","/static/jwlaser1.jpeg", "/static/galaxy525.jpeg", "/static/galaxy555.jpeg", "/static/image3.jpeg"];
+    // Slider with fallback images
+    const imagesList = ["/static/image1.jpeg","/static/jwlaser1.jpeg", "/static/galaxy525.jpeg", "/static/galaxy555.jpeg", "/static/image3.jpeg", "/static/image4.jpeg", "/static/image5.jpeg", "/static/image6.png", "/static/image7.jpeg", "/static/adi tech0006.jpg", "/static/adi tech0065.jpg"];
     let currentIdx = 0;
     const sliderImg = document.getElementById("heroSlider");
-    function updateSlide() { if(sliderImg && imagesList[currentIdx]) sliderImg.src = imagesList[currentIdx]; }
+    function updateSlide() { if(sliderImg) sliderImg.src = imagesList[currentIdx]; }
     function nextSlide() { currentIdx = (currentIdx + 1) % imagesList.length; updateSlide(); }
     function prevSlide() { currentIdx = (currentIdx - 1 + imagesList.length) % imagesList.length; updateSlide(); }
     document.getElementById("prevBtn")?.addEventListener("click", prevSlide);
@@ -1181,6 +1528,7 @@
     setInterval(nextSlide, 5000);
     updateSlide();
 
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         const targetId = this.getAttribute('href');
@@ -1190,25 +1538,32 @@
       });
     });
 
-    function openMenu(){ document.getElementById("sideMenu").style.left = "0"; document.getElementById("overlay").style.display = "block"; }
-    function closeMenu(){ document.getElementById("sideMenu").style.left = "-260px"; document.getElementById("overlay").style.display = "none"; }
+    function openMenu(){
+        document.getElementById("sideMenu").style.left = "0";
+        document.getElementById("overlay").style.display = "block";
+    }
 
-    // Helper: Show toast
-    function showToast(msg, duration=3000){
+    function closeMenu(){
+        document.getElementById("sideMenu").style.left = "-260px";
+        document.getElementById("overlay").style.display = "none";
+    }
+
+    // Show toast notification
+    function showToast(msg, duration = 3000) {
       const toast = document.getElementById("toastMsg");
       toast.innerText = msg;
       toast.style.display = "block";
       setTimeout(() => { toast.style.display = "none"; }, duration);
     }
 
-    // Submit form: Send to WhatsApp & Save to DB via POST API
+    // Form submission: Send to WhatsApp AND save to backend
     const demoForm = document.getElementById("demoForm");
-    const WHATSAPP_NUMBER = "916393753122";  // without '+'
+    const WHATSAPP_NUMBER = "919051225062";
 
-    demoForm.addEventListener("submit", async function(e){
+    demoForm.addEventListener("submit", async function(e) {
       e.preventDefault();
       
-      // collect form data
+      // Get form values
       const fullName = document.getElementById("full_name").value.trim();
       const company = document.getElementById("company_name").value.trim();
       const phone = document.getElementById("phone").value.trim();
@@ -1216,28 +1571,29 @@
       const productInterest = document.getElementById("product_interest").value;
       const requirement = document.getElementById("requirement").value.trim();
 
-      if(!fullName || !phone){
+      // Validation
+      if (!fullName || !phone) {
         alert("Please fill Name and Phone number");
         return;
       }
-      if(!productInterest){
+      if (!productInterest) {
         alert("Please select a product interest");
         return;
       }
 
-      // Prepare message for WhatsApp
+      // Prepare WhatsApp message
       let waMessage = `*New Enquiry from ORION Website*%0A%0A`;
       waMessage += `*Name:* ${encodeURIComponent(fullName)}%0A`;
       waMessage += `*Company:* ${encodeURIComponent(company || "N/A")}%0A`;
       waMessage += `*Phone:* ${encodeURIComponent(phone)}%0A`;
       waMessage += `*Email:* ${encodeURIComponent(email || "N/A")}%0A`;
       waMessage += `*Product Interest:* ${encodeURIComponent(productInterest)}%0A`;
-      waMessage += `*Requirement:* ${encodeURIComponent(requirement || "N/A")}%0A`;
-      waMessage += `%0AThank you.`;
+      waMessage += `*Requirement:* ${encodeURIComponent(requirement || "N/A")}%0A%0A`;
+      waMessage += `Thank you.`;
 
       const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${waMessage}`;
 
-      // Prepare payload for backend save
+      // Prepare payload for backend
       const payload = {
         full_name: fullName,
         company_name: company,
@@ -1248,10 +1604,9 @@
         source: "website_demo_form"
       };
 
-      // Show processing toast
       showToast("Submitting enquiry & redirecting to WhatsApp...", 4000);
-      
-      // 1. Send data to backend (save to DB)
+
+      // Send to backend (save to DB)
       try {
         const response = await fetch("/save-enquiry", {
           method: "POST",
@@ -1259,24 +1614,23 @@
           body: JSON.stringify(payload)
         });
         const result = await response.json();
-        if(response.ok){
+        if (response.ok) {
           console.log("Enquiry saved to DB:", result);
         } else {
-          console.warn("Backend save issue, but continuing:", result);
-          showToast("Enquiry received (offline), will contact you!", 2000);
+          console.warn("Backend save issue:", result);
         }
       } catch (err) {
-        console.error("Backend not reachable, but proceeding to WhatsApp:", err);
-        showToast("Demo request noted! Redirecting to WhatsApp...", 2000);
+        console.error("Backend not reachable:", err);
+        // Continue to WhatsApp even if backend fails
       }
-      
-      // 2. Redirect to WhatsApp with message (opens in new tab)
+
+      // Open WhatsApp with prefilled message
       window.open(waLink, "_blank");
-      
-      // Optional: reset form after short delay
+
+      // Reset form after short delay
       setTimeout(() => {
         demoForm.reset();
-        showToast("Thank you! We'll connect soon.", 2500);
+        showToast("Thank you! We'll connect soon.", 3000);
       }, 1500);
     });
   </script>
