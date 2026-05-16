@@ -1,11 +1,44 @@
-
-
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from flask_mail import Mail, Message
+import sqlite3
 import os
+from datetime import datetime
 
 app = Flask(__name__)
 
+# =========================================
+# DATABASE
+# =========================================
+
+DATABASE = "database.db"
+
+def create_db():
+
+    con = sqlite3.connect(DATABASE)
+
+    cmd = con.cursor()
+
+    cmd.execute("""
+    CREATE TABLE IF NOT EXISTS enquiries (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        full_name TEXT,
+        company_name TEXT,
+        phone TEXT,
+        email TEXT,
+        product_interest TEXT,
+        requirement TEXT,
+        created_date TEXT
+    )
+    """)
+
+    con.commit()
+    con.close()
+
+create_db()
+
+# =========================================
+# WEBSITE ROUTES
+# =========================================
 
 @app.route('/')
 def hello_world():
@@ -31,23 +64,91 @@ def details3():
 def details4():
     return render_template("details4.html")
 
-# FLASK ROUTE
+# =========================================
+# ENQUIRY FORM SAVE
+# =========================================
 
+@app.route("/save-enquiry", methods=["POST"])
+def save_enquiry():
 
+    full_name = request.form.get("full_name")
+    company_name = request.form.get("company_name")
+    phone = request.form.get("phone")
+    email = request.form.get("email")
+    product_interest = request.form.get("product_interest")
+    requirement = request.form.get("requirement")
 
+    con = sqlite3.connect(DATABASE)
 
+    cmd = con.cursor()
 
+    cmd.execute("""
+    INSERT INTO enquiries
+    (
+        full_name,
+        company_name,
+        phone,
+        email,
+        product_interest,
+        requirement,
+        created_date
+    )
+    VALUES
+    (
+        ?,?,?,?,?,?,?
+    )
+    """,
+    (
+        full_name,
+        company_name,
+        phone,
+        email,
+        product_interest,
+        requirement,
+        datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    ))
 
+    con.commit()
+    con.close()
+
+    return "Enquiry Saved Successfully"
+
+# =========================================
+# ADMIN PANEL
+# =========================================
+
+@app.route("/admin")
+def admin():
+
+    con = sqlite3.connect(DATABASE)
+
+    con.row_factory = sqlite3.Row
+
+    cmd = con.cursor()
+
+    cmd.execute("""
+    SELECT * FROM enquiries
+    ORDER BY id DESC
+    """)
+
+    data = cmd.fetchall()
+
+    con.close()
+
+    return render_template(
+        "admin.html",
+        enquiries=data
+    )
+
+# =========================================
 # MAIL CONFIG
+# =========================================
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 
-# YOUR GMAIL
 app.config['MAIL_USERNAME'] = 'orioninstruments@gmail.com'
-
-# APP PASSWORD
 app.config['MAIL_PASSWORD'] = 'Amit123'
 
 mail = Mail(app)
@@ -71,8 +172,6 @@ def upload():
     filename = ""
     filepath = ""
 
-    # SAVE FILE
-
     if uploaded_file and uploaded_file.filename != "":
 
         filename = uploaded_file.filename
@@ -84,8 +183,6 @@ def upload():
 
         uploaded_file.save(filepath)
 
-    # EMAIL BODY
-
     body = f"""
 Name: {name}
 
@@ -95,8 +192,6 @@ Message:
 {message_text}
 """
 
-    # EMAIL MESSAGE
-
     msg = Message(
         subject="New Support Message",
         sender='orioninstruments@gmail.com',
@@ -104,8 +199,6 @@ Message:
     )
 
     msg.body = body
-
-    # ATTACH FILE
 
     if filepath != "":
 
@@ -117,13 +210,13 @@ Message:
                 fp.read()
             )
 
-    # SEND EMAIL
-
     mail.send(msg)
 
     return "Email Sent Successfully"
 
-
+# =========================================
+# RUN
+# =========================================
 
 if __name__ == "__main__":
     app.run(debug=True)

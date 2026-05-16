@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Admin Panel</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            padding:20px;
+        }
+
+        table{
+            width:100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td{
+            border:1px solid #ccc;
+        }
+
+        th, td{
+            padding:10px;
+            text-align:left;
+        }
+
+        th{
+            background:#f2f2f2;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h2>Enquiries</h2>
+
+<table>
+
+    <tr>
+
+        <th>ID</th>
+        <th>Name</th>
+        <th>Company</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Product</th>
+        <th>Requirement</th>
+        <th>Date</th>
+
+    </tr>
+
+    {% for row in enquiries %}
+
+    <tr>
+
+        <td>{{ row.id }}</td>
+
+        <td>{{ row.full_name }}</td>
+
+        <td>{{ row.company_name }}</td>
+
+        <td>{{ row.phone }}</td>
+
+        <td>{{ row.email }}</td>
+
+        <td>{{ row.product_interest }}</td>
+
+        <td>{{ row.requirement }}</td>
+
+        <td>{{ row.created_date }}</td>
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+</body>
+</html>

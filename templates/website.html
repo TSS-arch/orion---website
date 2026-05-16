@@ -1398,15 +1398,88 @@ border-bottom:1px solid #eee;
     <div class="demo-container">
       <h2>Request a Live Demo</h2>
       <p>Fill the form and our team will contact you shortly.</p>
-      <form class="demo-form" id="demoForm">
-        <div class="input-group"><input type="text" placeholder="Full Name" required></div>
-        <div class="input-group"><input type="text" placeholder="Company / Shop Name"></div>
-        <div class="input-group"><input type="tel" placeholder="Phone Number" required></div>
-        <div class="input-group"><input type="email" placeholder="Email Address"></div>
-        <div class="input-group"><select><option>Select Product Interest</option><option>Gold Testing Machine</option><option>XRF Analyzer</option><option>Laser Marking Machine</option><option>Service & Support</option></select></div>
-        <div class="input-group"><textarea placeholder="Your requirement details..."></textarea></div>
-        <button type="submit" class="demo-btn">Submit Enquiry</button>
-      </form>
+      <form class="demo-form"
+      id="demoForm"
+      action="/save-enquiry"
+      method="POST">
+
+    <div class="input-group">
+
+        <input type="text"
+               name="full_name"
+               placeholder="Full Name"
+               required>
+
+    </div>
+
+    <div class="input-group">
+
+        <input type="text"
+               name="company_name"
+               placeholder="Company / Shop Name">
+
+    </div>
+
+    <div class="input-group">
+
+        <input type="tel"
+               name="phone"
+               placeholder="Phone Number"
+               required>
+
+    </div>
+
+    <div class="input-group">
+
+        <input type="email"
+               name="email"
+               placeholder="Email Address">
+
+    </div>
+
+    <div class="input-group">
+
+        <select name="product_interest" required>
+
+            <option value="">
+                Select Product Interest
+            </option>
+
+            <option value="Gold Testing Machine">
+                Gold Testing Machine
+            </option>
+
+            <option value="XRF Analyzer">
+                XRF Analyzer
+            </option>
+
+            <option value="Laser Marking Machine">
+                Laser Marking Machine
+            </option>
+
+            <option value="Service & Support">
+                Service & Support
+            </option>
+
+        </select>
+
+    </div>
+
+    <div class="input-group">
+
+        <textarea name="requirement"
+                  placeholder="Your requirement details..."></textarea>
+
+    </div>
+
+    <button type="submit"
+            class="demo-btn">
+
+        Submit Enquiry
+
+    </button>
+
+</form>
     </div>
   </section>
 
