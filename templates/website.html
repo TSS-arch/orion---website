@@ -1188,6 +1188,25 @@ border-bottom:1px solid #eee;
 }
 .call-btn:hover { background: #054a3f; }
 .whatsapp-btn:hover { background: #128C7E; }
+
+/* Success toast message */
+.success-toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #25D366;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-weight: 600;
+  z-index: 2000;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+.success-toast.show {
+  transform: translateX(-50%) translateY(0);
+}
 </style>
 </head>
 <body>
@@ -1212,7 +1231,7 @@ border-bottom:1px solid #eee;
         <a href="#product">Products</a>
         <a href="#reviews">Reviews</a>
         <a href="#contact">Contact</a>
-        
+        <a href="/support">Email</a>
         <a href="#demo" class="contact-btn">Request a Demo</a>
       </div>
 
@@ -1336,9 +1355,9 @@ border-bottom:1px solid #eee;
             <option value="Service & Support">Service & Support</option>
         </select></div>
         <div class="input-group"><textarea name="requirement" placeholder="Your requirement details..."></textarea></div>
-        <button type="submit" class="demo-btn">Submit Enquiry</button>
+        <button type="submit" class="demo-btn" id="submitBtn">Submit Enquiry</button>
       </form>
-      <!-- ADDED: WhatsApp + Call Buttons (pre-fill WhatsApp with form data) -->
+      <!-- WhatsApp + Call Buttons -->
       <div class="call-wp-row">
         <a href="tel:+916393753122" class="call-btn"><i class="fas fa-phone-alt"></i> Call Now</a>
         <a href="#" id="whatsappPreFillBtn" class="whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
@@ -1435,23 +1454,98 @@ border-bottom:1px solid #eee;
         document.getElementById("overlay").style.display = "none";
     }
 
-    // WhatsApp prefill with form data (without breaking backend)
-    const wpBtn = document.getElementById("whatsappPreFillBtn");
-    const demoForm = document.getElementById("demoForm");
+    // Function to get form data for WhatsApp message
     function getFormDataForWhatsApp() {
-        const fullName = demoForm.querySelector('input[name="full_name"]')?.value.trim() || "";
-        const company = demoForm.querySelector('input[name="company_name"]')?.value.trim() || "";
-        const phone = demoForm.querySelector('input[name="phone"]')?.value.trim() || "";
-        const email = demoForm.querySelector('input[name="email"]')?.value.trim() || "";
-        const product = demoForm.querySelector('select[name="product_interest"]')?.value || "";
-        const requirement = demoForm.querySelector('textarea[name="requirement"]')?.value.trim() || "";
+        const fullName = document.querySelector('input[name="full_name"]')?.value.trim() || "";
+        const company = document.querySelector('input[name="company_name"]')?.value.trim() || "";
+        const phone = document.querySelector('input[name="phone"]')?.value.trim() || "";
+        const email = document.querySelector('input[name="email"]')?.value.trim() || "";
+        const product = document.querySelector('select[name="product_interest"]')?.value || "";
+        const requirement = document.querySelector('textarea[name="requirement"]')?.value.trim() || "";
         let msg = `*New Enquiry from Orion Website*%0A%0A*Name:* ${fullName || "—"}%0A*Company:* ${company || "—"}%0A*Phone:* ${phone || "—"}%0A*Email:* ${email || "—"}%0A*Product Interested:* ${product || "—"}%0A*Requirement:* ${requirement || "—"}%0A%0AThanks for connecting.`;
         return msg;
     }
+
+    // Show toast message
+    function showToast(message) {
+      let toast = document.querySelector('.success-toast');
+      if(!toast) {
+        toast = document.createElement('div');
+        toast.className = 'success-toast';
+        document.body.appendChild(toast);
+      }
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Handle form submission - send to backend AND then redirect to WhatsApp
+    const demoForm = document.getElementById('demoForm');
+    const originalAction = demoForm.action;
+    const originalMethod = demoForm.method;
+
+    demoForm.addEventListener('submit', function(e) {
+      e.preventDefault();  // Prevent normal submission first
+      
+      // Validate required fields
+      const fullName = document.querySelector('input[name="full_name"]')?.value.trim();
+      const phone = document.querySelector('input[name="phone"]')?.value.trim();
+      const productInterest = document.querySelector('select[name="product_interest"]')?.value;
+      
+      if(!fullName) {
+        showToast('❌ Please enter your full name');
+        return;
+      }
+      if(!phone) {
+        showToast('❌ Please enter your phone number');
+        return;
+      }
+      if(!productInterest) {
+        showToast('❌ Please select a product interest');
+        return;
+      }
+      
+      // Get form data for WhatsApp
+      const wpMessage = getFormDataForWhatsApp();
+      const whatsappUrl = `https://wa.me/916393753122?text=${wpMessage}`;
+      
+      // Submit to backend using fetch (preserves original backend structure)
+      const formData = new FormData(demoForm);
+      
+      fetch(originalAction, {
+        method: originalMethod,
+        body: formData,
+        // This prevents redirect following - we handle it ourselves
+        redirect: 'manual'
+      })
+      .then(response => {
+        // Backend submission successful (even if it returns redirect)
+        // Now redirect to WhatsApp with pre-filled data
+        showToast('✓ Enquiry sent! Redirecting to WhatsApp...');
+        setTimeout(() => {
+          window.open(whatsappUrl, '_blank');
+          // Optional: reset form after successful submission
+          // demoForm.reset();
+        }, 800);
+      })
+      .catch(error => {
+        // Even if fetch fails (CORS etc), still redirect to WhatsApp
+        console.log('Backend note:', error);
+        showToast('✓ Opening WhatsApp with your details...');
+        setTimeout(() => {
+          window.open(whatsappUrl, '_blank');
+        }, 500);
+      });
+    });
+
+    // WhatsApp button - pre-fill with current form data
+    const wpBtn = document.getElementById("whatsappPreFillBtn");
     if(wpBtn) {
         wpBtn.addEventListener("click", function(e) {
             e.preventDefault();
-            let message = getFormDataForWhatsApp();
+            const message = getFormDataForWhatsApp();
             const whatsappUrl = `https://wa.me/916393753122?text=${message}`;
             window.open(whatsappUrl, '_blank');
         });
